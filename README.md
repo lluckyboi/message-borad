@@ -21,6 +21,7 @@ func LengthCheck(ss string)(string,bool){
 简单粗暴
 
 # 套娃评论的实现
+简易版：
 
 在comment表中 加了一个判断字段
 
@@ -32,10 +33,9 @@ type Comment struct {
 	Username    string
 	CommentTime time.Time
 	IsComCom    string//是否是评论的评论
-	ComComId	string//套娃的目标
+	ComComId    string//套娃的目标 或者说父节点
 }
 ```
-
 添加评论时判断即可
 
 在API层都是统一的AddComment
@@ -47,6 +47,17 @@ type Comment struct {
 由于修改与删除评论我直接用的评论ID作为主键 因此可以**对任意评论有效**
 
 
+**用树的话**
+
+由于每个评论可以被多次评论
+
+感觉有无数个子节点？
+
+还没想好具体怎么实现
+
+如果限定每个评论只能被两次套娃
+
+评论表加个左右节点就行了(id)
 
 ## 如果要查看一个评论的所有评论
 
